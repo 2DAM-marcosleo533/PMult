@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">tres_en_raya</string>
+    <string name="result_human_wins">Gana el humano</string>
+    <string name="puntuacion_jugador">Puntuación del jugador</string>
+    <string name="puntuacion_partidas">Puntuación de partidas</string>
+    <string name="puntuacion_maquina">Puntuación de la máquina</string>
+    <string name="primero_jugador">Es tu turno, jugador</string>
+    <string name="turno_jugador">Turno del jugador</string>
+    <string name="result_computer_wins">La computadora ha ganado.</string>
+    <string name="result_tie">Empate.</string>
+</resources>
