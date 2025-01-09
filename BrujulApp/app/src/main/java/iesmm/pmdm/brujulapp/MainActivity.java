@@ -13,7 +13,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.widget.Toast;
 
 import java.io.File;
@@ -23,7 +22,6 @@ import java.io.OutputStreamWriter;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
-
     // Creamos los sensores
     SensorManager sensorManager;
     Sensor sensor;
@@ -72,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             cardinalDirectionText.setText("Dirección: " + getCardinalDirection(degree));
         }
     }
-
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
@@ -93,25 +90,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     // Método para obtener la dirección cardinal basada en los grados
     private static String getCardinalDirection(float degree) {
-        if (degree >= 337.5 || degree < 22.5) return "N";
-        if (degree >= 22.5 && degree < 67.5) return "NE";
-        if (degree >= 67.5 && degree < 112.5) return "E";
-        if (degree >= 112.5 && degree < 157.5) return "SE";
-        if (degree >= 157.5 && degree < 202.5) return "S";
-        if (degree >= 202.5 && degree < 247.5) return "SO";
-        if (degree >= 247.5 && degree < 292.5) return "O";
-        if (degree >= 292.5 && degree < 337.5) return "NO";
+        if (degree >= 337 || degree < 22) return "N";
+        if (degree >= 22 && degree < 67) return "NE";
+        if (degree >= 67 && degree < 112) return "E";
+        if (degree >= 112 && degree < 157) return "SE";
+        if (degree >= 157 && degree < 202) return "S";
+        if (degree >= 202 && degree < 247) return "SO";
+        if (degree >= 247 && degree < 292) return "O";
+        if (degree >= 292 && degree < 337) return "NO";
         return "";
     }
 
     // Tarea asíncrona para guardar los datos en CSV
-    private static class Medidor extends AsyncTask<Void, Void, Void> {
+    private class Medidor extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
             try {
                 while (true) {
-                    Thread.sleep(10000); // Espera 10 segundos
+                    Thread.sleep(10000); // Espera 10 segs
 
                     // Obtener la hora actual
                     Calendar calendar = Calendar.getInstance();
@@ -119,10 +116,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     int minute = calendar.get(Calendar.MINUTE);
                     int second = calendar.get(Calendar.SECOND);
 
-                    // Obtener la dirección cardinal actual
+                    // Guardamos la dirección cardinal actual
                     String cardinalDirection = getCardinalDirection(currentDegree);
 
-                    // Guardar los datos en un archivo CSV
+                    // Guardamo los datos en  CSV
                     saveDataToFile(cardinalDirection, hour, minute, second);
                 }
             } catch (InterruptedException e) {
@@ -133,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // Método para guardar datos en un archivo CSV
         private void saveDataToFile(String cardinalDirection, int hour, int minute, int second) {
-            File file = new File(Environment.getExternalStorageDirectory(), "sensor_data.csv");
+            File file = new File(getApplicationContext().getFilesDir(), "sensor.csv");
 
             try (FileOutputStream fos = new FileOutputStream(file, true);
                  OutputStreamWriter writer = new OutputStreamWriter(fos)) {

@@ -1,0 +1,10 @@
+<resources>
+    <string name="Type">Introduzca palabra</string>
+    <string name="Search">Buscar palabra</string>
+    <string name="Matches">Coincidencias</string>
+    <string name="Statistics">Estadística</string>
+    <string name="Number">Número de palabras</string>
+    <string name="Greatest">Palabra mayor</string>
+    <string name="Smallest">Palabra menor</string>
+    <string name="second">2ºpalabra mayor</string>
+</resources>

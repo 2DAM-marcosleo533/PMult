@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name" translatable="false">EstadisticaApp</string>
+    <string name="Type">Type a word</string>
+    <string name="Search">Search word</string>
+    <string name="Matches">Matches</string>
+    <string name="Statistics">Statistics</string>
+    <string name="Number">Number of words</string>
+    <string name="Greatest">Greatest word</string>
+    <string name="Smallest">Smallest word</string>
+    <string name="second">2ºgreatest word</string>
+</resources>

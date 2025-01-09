@@ -1,0 +1,22 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+drawable bomb
+drawable explotion
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id bombSeconds
+id button
+id imgBomb
+id main
+id numero
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_round
+raw bomb
+string app_name
+style Base.Theme.BombApp
+style Theme.BombApp
+xml backup_rules
+xml data_extraction_rules
