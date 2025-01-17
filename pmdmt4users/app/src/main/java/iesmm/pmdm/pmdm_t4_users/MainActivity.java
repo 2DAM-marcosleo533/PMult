@@ -1,5 +1,7 @@
 package iesmm.pmdm.pmdm_t4_users;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
+                } else {
+                   Snackbar.make(view, "Usuario y contraseña incorrectos", Snackbar.LENGTH_LONG).show();
                 }
             }
 
@@ -68,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
                     // Leer cada línea del archivo y comprobar las credenciales
                     while ((linea = reader.readLine()) != null) {
                         String[] userDetails = linea.split(";");
-                        if (userDetails.length == 2 && userDetails[0].equals(username) && userDetails[1].equals(password)) {
+
+                        // Verificar que la línea tenga al menos 5 elementos (username, password, y otros datos)
+                        if (userDetails.length >= 5 && userDetails[2].equals(username) && userDetails[3].equals(password)) {
                             accesoConcedido = true;
                             break;
                         }
