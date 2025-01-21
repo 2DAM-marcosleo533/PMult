@@ -1,11 +1,13 @@
 package iesmm.pmdm.pmdm_t4_users;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
@@ -18,11 +20,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleMap.OnMapClickListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
+    private String username, email, phone, address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +39,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         EdgeToEdge.enable(this);
         setContentView(R.layout.maps_activity);
 
-        //Recuperar datos del bundle
+        // Recuperar datos del bundle
         Bundle parametros = this.getIntent().getExtras();
-
-        if (parametros != null){
-            String username = parametros.getString("username");
-
-            TextView t = this.findViewById(R.id.welcome);
-            t.setText("Bienvenido\n" + username);
+        if (parametros != null) {
+            username = parametros.getString("username");
         }
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
     }
 
     @Override
@@ -50,24 +60,66 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMarkerClickListener(this);
         mMap.setOnInfoWindowClickListener(this);
 
-        mMap.addMarker(new MarkerOptions().position(new LatLng(36.5164483, -6.3236687))
-                .title("Cadiz")
-                .snippet("☎\uFE0F 900133384\nEmail")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        // Cargar usuarios desde el archivo CSV
+        cargarUsuariosDesdeCSV();
+    }
 
+    private void cargarUsuariosDesdeCSV() {
+        try {
+            InputStream inputStream = openFileInput("users.csv"); // Leer desde almacenamiento interno
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String linea;
 
-        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(40.4375354, -3.9913698))
-                .title("Madrid")
-                .snippet("☎\uFE0F 934862938")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+            while ((linea = reader.readLine()) != null) {
+                Log.d("CSV", "Línea leída: " + linea); // Para depuración
+                String[] datos = linea.split(";");
+                if (datos.length >= 5) {
+                    String nombreUsuario = datos[0];
+                    String emailUsuario = datos[2];
+                    String telefonoUsuario = datos[3];
+                    String direccionUsuario = datos[4];
 
+                    LatLng coordenadas = obtenerCoordenadasDesdeDireccion(direccionUsuario);
+                    if (coordenadas != null) {
+                        if (emailUsuario.equals(username)) {
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(coordenadas)
+                                    .title(nombreUsuario)
+                                    .snippet("Email: " + emailUsuario + "\nTel: " + telefonoUsuario)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(coordenadas, 12));
+                        } else {
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(coordenadas)
+                                    .title(nombreUsuario)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                        }
+                    }
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            mostrarError("Error al leer el archivo CSV: " + e.getMessage());
+            Log.e("CSV", "Error al leer CSV", e);
+        }
+    }
 
+    private LatLng obtenerCoordenadasDesdeDireccion(String direccion) {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> direcciones = geocoder.getFromLocationName(direccion, 1);
+            if (!direcciones.isEmpty()) {
+                Address ubicacion = direcciones.get(0);
+                return new LatLng(ubicacion.getLatitude(), ubicacion.getLongitude());
+            }
+        } catch (IOException e) {
+            mostrarError("Error al obtener coordenadas para: " + direccion);
+        }
+        return null;
+    }
 
-
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition()
-                , 8), 5000, null);
-        marker.showInfoWindow();
-        // mMap.clear();
+    private void mostrarError(String mensaje) {
+        runOnUiThread(() -> Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show());
     }
 
     @Override
@@ -85,6 +137,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Toast.makeText(this, marker.getTitle(), Toast.LENGTH_SHORT).show();
         return false;
     }
-
-
 }

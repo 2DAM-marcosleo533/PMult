@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         String[] userDetails = linea.split(";");
 
                         // Verificar que la línea tenga al menos 5 elementos (username, password, y otros datos)
-                        if (userDetails.length >= 5 && userDetails[2].equals(username) && userDetails[3].equals(password)) {
+                        if (userDetails.length >= 5 && userDetails[2].equals(username) && userDetails[1].equals(password)) {
                             accesoConcedido = true;
                             break;
                         }
