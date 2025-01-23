@@ -13,11 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Onboarding2Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Onboarding2Fragment extends Fragment {
 
     Button botonFinalizar;

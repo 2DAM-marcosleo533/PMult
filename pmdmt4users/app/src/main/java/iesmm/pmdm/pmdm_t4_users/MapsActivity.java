@@ -31,7 +31,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         GoogleMap.OnMapClickListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
-    private String username, email, phone, address;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         EdgeToEdge.enable(this);
         setContentView(R.layout.maps_activity);
 
-        // Recuperar datos del bundle
+
         Bundle parametros = this.getIntent().getExtras();
         if (parametros != null) {
             username = parametros.getString("username");
@@ -60,18 +60,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMarkerClickListener(this);
         mMap.setOnInfoWindowClickListener(this);
 
-        // Cargar usuarios desde el archivo CSV
         cargarUsuariosDesdeCSV();
     }
 
     private void cargarUsuariosDesdeCSV() {
         try {
-            InputStream inputStream = openFileInput("users.csv"); // Leer desde almacenamiento interno
+            InputStream inputStream = openFileInput("users.csv");
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String linea;
 
             while ((linea = reader.readLine()) != null) {
-                Log.d("CSV", "Línea leída: " + linea); // Para depuración
+                Log.d("CSV", "Línea leída: " + linea);
                 String[] datos = linea.split(";");
                 if (datos.length >= 5) {
                     String nombreUsuario = datos[0];
