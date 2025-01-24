@@ -1,0 +1,35 @@
+R_DEF: Internal format may change without notice
+local
+anim rotacion
+color black
+color purple_200
+color purple_500
+color purple_700
+color teal_200
+color teal_700
+color white
+drawable download
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable splash0
+drawable splash1
+drawable splash2
+drawable splash3
+drawable splash4
+drawable splash5
+drawable splash6
+drawable splash7
+drawable spr0
+drawable spr1
+drawable spr2
+drawable spr3
+drawable sprites
+id boton
+id imageView
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Theme.Pmdmt4animaciones02
+xml backup_rules
+xml data_extraction_rules
