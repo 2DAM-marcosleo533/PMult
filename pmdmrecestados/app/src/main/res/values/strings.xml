@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Registro de Estados</string>
+    <string name="iniciar">Iniciar</string>
+    <string name="pausar">Pausar</string>
+    <string name="reiniciar">Reiniciar</string>
+    <string name="finalizar">Finalizar</string>
+    <string name="estado">Estado</string>
+    <string name="num_veces">Nº de veces</string>
+    <string name="hora">Hora</string>
+    <string name="estado_registrado">%1$s registrado.</string>
+    <string name="error_agregar">Error al registrar el estado.</string>
+    <string name="error_cargar">Error al cargar los estados.</string>
+</resources>

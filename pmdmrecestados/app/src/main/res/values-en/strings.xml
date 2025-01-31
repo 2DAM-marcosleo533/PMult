@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">State Tracker</string>
+    <string name="iniciar">Start</string>
+    <string name="pausar">Pause</string>
+    <string name="reiniciar">Restart</string>
+    <string name="finalizar">Finish</string>
+    <string name="estado">State</string>
+    <string name="num_veces">Times</string>
+    <string name="hora">Time</string>
+    <string name="estado_registrado">%1$s recorded.</string>
+    <string name="error_agregar">Error recording the state.</string>
+    <string name="error_cargar">Error loading the states.</string>
+</resources>
