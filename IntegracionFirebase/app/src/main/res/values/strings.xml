@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">IntegracionFirebase</string>
+    <string name="login">Login</string>
+    <string name="password" />
+    <string name="email" />
+    <string name="register">Register</string>
+    <string name="logout">Logout</string>
+</resources>

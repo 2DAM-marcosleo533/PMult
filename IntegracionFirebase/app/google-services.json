@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "303881760608",
+    "project_id": "fir-marcos-39a7a",
+    "storage_bucket": "fir-marcos-39a7a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303881760608:android:3b57f264053c3a48ae7805",
+        "android_client_info": {
+          "package_name": "iesmm.pmdm.integracionfirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArtp3nekDy0h1HSwYRqpyFrZfP84vDZZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
